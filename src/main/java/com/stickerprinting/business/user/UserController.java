@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,8 +32,6 @@ public class UserController {
     	System.out.println("NAME: " + auth.getName());
     	Long userId = Long.valueOf(auth.getName());
     	
-    	
-    	
         UserResponseDTO user =
                 userService.getCurrentUser(userId);
 
@@ -40,6 +40,29 @@ public class UserController {
                         .success(true)
                         .message("User fetched successfully")
                         .data(user)
+                        .timestamp(LocalDateTime.now())
+                        .build();
+
+        return ResponseEntity.ok(response);
+    }
+    
+    @PutMapping("/sticker-size")
+    public ResponseEntity<ApiResponse<StickerSizeResponseDTO>>
+    updateStickerSize(
+            Authentication auth,
+            @RequestBody StickerSizeRequest request
+    ) {
+
+        Long userId = Long.valueOf(auth.getName());
+
+        StickerSizeResponseDTO responseData =
+                userService.updateStickerSize(userId, request);
+
+        ApiResponse<StickerSizeResponseDTO> response =
+                ApiResponse.<StickerSizeResponseDTO>builder()
+                        .success(true)
+                        .message("Sticker size updated successfully")
+                        .data(responseData)
                         .timestamp(LocalDateTime.now())
                         .build();
 

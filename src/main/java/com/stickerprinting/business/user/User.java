@@ -46,11 +46,19 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
-    
+
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     private LocalDate subscriptionExpiry;
 
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Double stickerWidth = 36.0;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Double stickerHeight = 30.0;
 }

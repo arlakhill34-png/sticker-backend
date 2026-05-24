@@ -29,6 +29,29 @@ public class UserServiceImpl implements UserService {
                 .subscriptionExpiry(
                         user.getSubscriptionExpiry()
                 )
+                .stickerHeight(user.getStickerHeight())
+                .stickerWidth(user.getStickerWidth())
+                .build();
+    }
+    
+    @Override
+    public StickerSizeResponseDTO updateStickerSize(
+            Long userId,
+            StickerSizeRequest request
+    ) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
+
+        user.setStickerWidth(request.getStickerWidth());
+        user.setStickerHeight(request.getStickerHeight());
+
+        User savedUser = userRepository.save(user);
+
+        return StickerSizeResponseDTO.builder()
+                .stickerWidth(savedUser.getStickerWidth())
+                .stickerHeight(savedUser.getStickerHeight())
                 .build();
     }
 }

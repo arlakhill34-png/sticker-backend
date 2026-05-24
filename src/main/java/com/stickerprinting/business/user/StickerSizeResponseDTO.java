@@ -1,7 +1,5 @@
 package com.stickerprinting.business.user;
 
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,22 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserResponseDTO {
+public class StickerSizeResponseDTO {
 
-    private Long id;
-
-    private String companyName;
-
-    private String companyEmail;
-
-    private String phoneNumber;
-
-    private String role;
-
-    private String status;
-
-    private LocalDate subscriptionExpiry;
-    
     private Double stickerWidth;
 
     private Double stickerHeight;
